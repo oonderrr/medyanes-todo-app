@@ -1,27 +1,22 @@
-'use client';
-
-import todosService from '@/services/todos/todos.service';
-import { useQuery } from '@tanstack/react-query';
+import { Card, CardContent } from '@/components/ui/card';
+import TodoTable from './components/todo-table';
 
 const Page = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['get-all-todos'],
-    queryFn: () => todosService.getAllTodos(),
-  });
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="w-full max-w-4xl space-y-4">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Todo Listesi</h1>
+        </div>
 
-  if (isLoading) {
-    return <div>Yükleniyor...</div>;
-  }
-
-  if (error) {
-    return <div>Hata: {error.message}</div>;
-  }
-
-  if (!data) {
-    return <div>Veri yok</div>;
-  }
-
-  return <div>{JSON.stringify(data.todos.map((todo) => todo.title))}</div>;
+        <Card>
+          <CardContent>
+            <TodoTable />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 };
 
 export default Page;
