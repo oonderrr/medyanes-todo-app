@@ -11,13 +11,20 @@ import {
 } from '@/components/ui/table';
 import todosService from '@/services/todos/todos.service';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useTodoStore } from '@/stores/todo-store';
 
 const TodoTable = () => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['get-all-todos'],
     queryFn: () => todosService.getAllTodos(),
   });
+
+  const { setRefetchTodos } = useTodoStore();
+
+  useEffect(() => {
+    setRefetchTodos(refetch);
+  }, [refetch, setRefetchTodos]);
 
   if (isLoading) return <div>Yükleniyor...</div>;
   if (error) return <div>Hata: {error.message}</div>;

@@ -30,6 +30,7 @@ import { Loader2 } from 'lucide-react';
 import type { CreateTodo } from '@/types/todos.types';
 import todosService from '@/services/todos/todos.service';
 import { toast } from 'sonner';
+import { useTodoStore } from '@/stores/todo-store';
 
 const formSchema = z.object({
   title: z.string().min(1, 'Başlık alanı zorunludur'),
@@ -38,6 +39,7 @@ const formSchema = z.object({
 
 const CreateTodo = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { triggerRefetch } = useTodoStore();
 
   const mutate = useMutation({
     mutationFn: (todo: CreateTodo) => todosService.createTodo(todo),
@@ -45,6 +47,7 @@ const CreateTodo = () => {
       setIsOpen(false);
       form.reset();
       toast.success('Todo başarıyla oluşturuldu.');
+      triggerRefetch();
     },
     onError: (error) => {
       toast.error('Todo oluşturulamadı:', { description: error.message });
