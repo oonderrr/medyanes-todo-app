@@ -23,7 +23,7 @@ const TodoList = () => {
   if (!data) return <div>Veri yok</div>;
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[70vh] overflow-y-auto">
       {data.todos.map((todo) => (
         <TodoCard key={todo.id} todo={todo} />
       ))}
