@@ -38,7 +38,7 @@ export default async function handler(
 
     res.status(200).json({
       success: true,
-      data: todos,
+      todos: todos,
       message: 'Todos fetched successfully',
     });
   }
@@ -67,7 +67,7 @@ export default async function handler(
 
     res.status(201).json({
       success: true,
-      data: todo,
+      todo: todo,
       message: 'Todo created successfully',
     });
   }
@@ -106,7 +106,7 @@ export default async function handler(
 
     res.status(200).json({
       success: true,
-      data: todo,
+      todo: todo,
       message: 'Todo updated successfully',
     });
   }
@@ -133,7 +133,7 @@ export default async function handler(
 
     res.status(200).json({
       success: true,
-      data: todo,
+      todo: todo,
       message: 'Todo deleted successfully',
     });
   }

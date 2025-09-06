@@ -2,7 +2,7 @@ import { tryCatch } from '@/utils/try-catch';
 
 interface PostApiProps {
   URL: string;
-  body: unknown;
+  body: Record<string, unknown> | null;
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE';
   headers?: { 'Content-Type': 'application/json' };
 }
@@ -13,24 +13,28 @@ const postApi = async ({
   method = 'POST',
   headers = { 'Content-Type': 'application/json' },
 }: PostApiProps) => {
-  if (!URL) throw new Error('URL is required');
+  if (!URL) {
+    throw new Error('URL bulunamadı!');
+  }
 
   const { data, error } = await tryCatch(
     fetch(URL, {
       method,
-      body: JSON.stringify(body),
+      body: body ? JSON.stringify(body) : null,
       headers,
       cache: 'no-store',
     }).then(async (res) => {
-      if (res.url.includes('/notification') && res.redirected) {
-        return (window.location.href = res.url);
-      } else {
-        return await res.json();
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
       }
+      return await res.json();
     }),
   );
 
-  if (error) throw new Error(`API request failed: ${error}`);
+  if (error) {
+    console.log(error);
+    throw new Error(`API request failed: ${error}`);
+  }
 
   return data;
 };
@@ -44,7 +48,9 @@ const getApi = async ({
   URL,
   headers = { 'Content-Type': 'application/json' },
 }: GetApiProps) => {
-  if (!URL) throw new Error('URL is required');
+  if (!URL) {
+    throw new Error('URL bulunamadı!');
+  }
 
   const { data, error } = await tryCatch(
     fetch(URL, {
@@ -52,11 +58,17 @@ const getApi = async ({
       headers,
       cache: 'no-store',
     }).then(async (res) => {
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       return await res.json();
     }),
   );
 
-  if (error) throw new Error(`API request failed: ${error}`);
+  if (error) {
+    console.log(error);
+    throw new Error(`API request failed: ${error}`);
+  }
 
   return data;
 };
