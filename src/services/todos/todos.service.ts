@@ -26,7 +26,7 @@ class TodosService {
 
   async deleteTodo(id: string): Promise<void> {
     return await postApi({
-      URL: `${this.baseUrl}/${id}`,
+      URL: `${this.baseUrl}`,
       body: { id },
       method: 'DELETE',
     });

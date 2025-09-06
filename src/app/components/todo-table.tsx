@@ -31,7 +31,7 @@ const TodoTable = () => {
   if (!data) return <div>Veri yok</div>;
 
   return (
-    <div>
+    <div className="max-h-[70vh] overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>
@@ -42,7 +42,7 @@ const TodoTable = () => {
             <TableHead className="text-end">Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody className="max-h-[70vh] overflow-y-auto">
+        <TableBody>
           {data.todos.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell>{todo.title}</TableCell>
