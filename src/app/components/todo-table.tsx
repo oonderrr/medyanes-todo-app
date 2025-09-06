@@ -24,7 +24,7 @@ const TodoTable = () => {
   if (!data) return <div>Veri yok</div>;
 
   return (
-    <div>
+    <div className="max-h-[70vh] overflow-y-auto">
       <Table>
         <TableHeader>
           <TableRow>

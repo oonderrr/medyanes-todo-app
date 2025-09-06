@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import TodoTable from './components/todo-table';
+import CreateTodo from './components/create-todo';
 
 const Page = () => {
   return (
@@ -7,6 +8,7 @@ const Page = () => {
       <div className="w-full max-w-4xl space-y-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Todo Listesi</h1>
+          <CreateTodo />
         </div>
 
         <Card>

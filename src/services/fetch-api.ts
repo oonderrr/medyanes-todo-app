@@ -2,7 +2,7 @@ import { tryCatch } from '@/utils/try-catch';
 
 interface PostApiProps {
   URL: string;
-  body: Record<string, unknown> | null;
+  body: unknown;
   method?: 'POST' | 'GET' | 'PUT' | 'DELETE';
   headers?: { 'Content-Type': 'application/json' };
 }
@@ -20,7 +20,7 @@ const postApi = async ({
   const { data, error } = await tryCatch(
     fetch(URL, {
       method,
-      body: body ? JSON.stringify(body) : null,
+      body: JSON.stringify(body),
       headers,
       cache: 'no-store',
     }).then(async (res) => {
@@ -32,7 +32,7 @@ const postApi = async ({
   );
 
   if (error) {
-    console.log(error);
+    console.error('API request error:', error);
     throw new Error(`API request failed: ${error}`);
   }
 
