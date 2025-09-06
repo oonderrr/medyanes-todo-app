@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import {
   Table,
   TableBody,
@@ -13,6 +12,7 @@ import todosService from '@/services/todos/todos.service';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect } from 'react';
 import { useTodoStore } from '@/stores/todo-store';
+import TodoActions from './todo-actions';
 
 const TodoTable = () => {
   const { data, isLoading, error, refetch } = useQuery({
@@ -31,7 +31,7 @@ const TodoTable = () => {
   if (!data) return <div>Veri yok</div>;
 
   return (
-    <div className="max-h-[70vh] overflow-y-auto">
+    <div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -42,7 +42,7 @@ const TodoTable = () => {
             <TableHead className="text-end">Actions</TableHead>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody className="max-h-[70vh] overflow-y-auto">
           {data.todos.map((todo) => (
             <TableRow key={todo.id}>
               <TableCell>{todo.title}</TableCell>
@@ -50,7 +50,7 @@ const TodoTable = () => {
               <TableCell>{todo.status}</TableCell>
               <TableCell>{new Date(todo.createdAt).toLocaleString()}</TableCell>
               <TableCell className="text-end">
-                <Button>Edit</Button>
+                <TodoActions todo={todo} />
               </TableCell>
             </TableRow>
           ))}

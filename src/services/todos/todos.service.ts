@@ -17,10 +17,9 @@ class TodosService {
   }
 
   async updateTodo(todo: UpdateTodo): Promise<void> {
-    const { id, ...todoData } = todo;
     return await postApi({
-      URL: `${this.baseUrl}/${id}`,
-      body: todoData,
+      URL: `${this.baseUrl}`,
+      body: todo,
       method: 'PUT',
     });
   }
